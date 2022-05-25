@@ -10,6 +10,15 @@ class ShowUserProfileUseCase {
 
   execute({ user_id }: IRequest): User {
     // Complete aqui
+    const userAlreadyExists = this.usersRepository.findById(user_id);
+
+    if (!userAlreadyExists) {
+      throw new Error("Mensagem do erro");
+    }
+
+    const user = this.usersRepository.turnAdmin(userAlreadyExists);
+
+    return user;
   }
 }
 
