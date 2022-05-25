@@ -1,0 +1,297 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Todo Documentation",
+    "description": "This is an todo API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "marcelo@example.com"
+    }
+  },
+
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Category name sample",
+                  "email": "Category email sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "default": "false"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "User Already Exists."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [{
+          "name": "user_id",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": "true"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "User Is Not Admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show user profile",
+        "description": "Show user profile",
+        "parameters": [{
+          "name": "user_id",
+          "in": "path",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": "true"
+        }],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "User Not Exists."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Turn user admin",
+        "description": "Turn user admin",
+        "parameters": [{
+          "name": "user_id",
+          "in": "path",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": "true"
+        }],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "default": "true"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error: Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "default": "User Not Exists."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

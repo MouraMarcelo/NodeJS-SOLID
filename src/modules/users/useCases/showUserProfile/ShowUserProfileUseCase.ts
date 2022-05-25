@@ -13,7 +13,7 @@ class ShowUserProfileUseCase {
     const userAlreadyExists = this.usersRepository.findById(user_id);
 
     if (!userAlreadyExists) {
-      throw new Error("Mensagem do erro");
+      throw new Error("User Not Exists.");
     }
 
     const user = this.usersRepository.turnAdmin(userAlreadyExists);

@@ -10,8 +10,6 @@ class TurnUserAdminController {
     try {
       const { user_id } = request.params;
 
-      console.log("Id recebido pelo cabeçalho:", user_id);
-
       const user = this.turnUserAdminUseCase.execute({ user_id });
 
       return response.json(user);
